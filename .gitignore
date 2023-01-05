@@ -2,7 +2,8 @@
 /dist
 /node_modules
 
-# Logs
+# Environment
+.env
 
 # OS
 .DS_Store
