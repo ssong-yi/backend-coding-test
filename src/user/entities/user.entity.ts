@@ -5,7 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Post } from 'src/post/post.entity';
+import { Comment } from 'src/comment/comment.entity';
 
 @Entity('USER')
 export class User {
@@ -26,4 +29,10 @@ export class User {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @OneToMany((type) => Post, (post) => post.user)
+  posts: Post[];
+
+  @OneToMany((type) => Comment, (comment) => comment.author)
+  comments: Comment[];
 }

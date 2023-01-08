@@ -4,7 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   DeleteDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
+import { User } from 'src/user/entities/user.entity';
 
 @Entity('COMMENT')
 export class Comment {
@@ -22,4 +25,8 @@ export class Comment {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @OneToOne(() => User)
+  @JoinColumn()
+  author: User;
 }
