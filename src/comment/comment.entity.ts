@@ -8,16 +8,14 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
+import { Post } from 'src/post/post.entity';
 
 @Entity('COMMENT')
 export class Comment {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 100, unique: true })
-  writer: number;
-
-  @Column({ type: 'text' })
+  @Column({ type: 'text', comment: '댓글 내용' })
   content: string;
 
   @CreateDateColumn()
@@ -29,4 +27,8 @@ export class Comment {
   @OneToOne(() => User)
   @JoinColumn()
   author: User;
+
+  @OneToOne(() => Post)
+  @JoinColumn()
+  post: Post;
 }
