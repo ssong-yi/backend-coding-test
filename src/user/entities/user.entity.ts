@@ -15,10 +15,10 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 100, unique: true })
+  @Column({ type: 'varchar', length: 50, unique: true, comment: '이메일' })
   email: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', length: 300, comment: '비밀번호' })
   password: string;
 
   @CreateDateColumn()
@@ -30,9 +30,9 @@ export class User {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToMany((type) => Post, (post) => post.user)
+  @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
 
-  @OneToMany((type) => Comment, (comment) => comment.author)
+  @OneToMany(() => Comment, (comment) => comment.author)
   comments: Comment[];
 }
