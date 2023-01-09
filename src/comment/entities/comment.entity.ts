@@ -6,16 +6,16 @@ import {
   DeleteDateColumn,
   ManyToOne,
 } from 'typeorm';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from 'src/user/entities/user.entity';
-import { Post } from 'src/post/post.entity';
+import { Post } from 'src/post/entities/post.entity';
 
 @ObjectType()
 @Entity('COMMENT')
 export class Comment {
-  @Field(() => Int)
-  @PrimaryGeneratedColumn()
-  id: number;
+  @Field()
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Field()
   @Column({ type: 'text', comment: '댓글 내용' })
