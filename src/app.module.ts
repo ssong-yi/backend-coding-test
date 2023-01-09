@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { UserModule } from './user/user.module';
-import { User } from './user/user.entity';
+import { User } from './user/entities/user.entity';
 import { PostModule } from './post/post.module';
 import { Post } from './post/post.entity';
 import { CommentModule } from './comment/comment.module';
@@ -24,10 +26,14 @@ import { Comment } from './comment/comment.entity';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         synchronize: true,
-        logging: true,
         entities: [User, Post, Comment],
       }),
       inject: [ConfigService],
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      debug: true,
+      autoSchemaFile: true,
     }),
     UserModule,
     PostModule,
