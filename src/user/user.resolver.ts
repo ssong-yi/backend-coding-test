@@ -22,4 +22,9 @@ export class UserResolver {
   async updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
     return await this.userService.update(updateUserInput.id, updateUserInput);
   }
+
+  @Mutation(() => User)
+  async deleteUser(@Args('deleteUserId') id: string) {
+    return await this.userService.delete(id);
+  }
 }

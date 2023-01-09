@@ -26,18 +26,25 @@ export class UserService {
 
   async findByEmail(email: string): Promise<User | undefined> {
     try {
-      return await this.userRepository.findOneByOrFail({
-        email: email,
-      });
+      return await this.userRepository.findOneByOrFail({ email });
     } catch (error) {
       this.logger.error(error);
     }
   }
 
-  async update(id: number, updateUserInput: UpdateUserInput): Promise<User> {
+  async update(id: string, updateUserInput: UpdateUserInput): Promise<User> {
     try {
       await this.userRepository.save(updateUserInput);
-      return this.userRepository.findOneByOrFail({ id: id });
+      return this.userRepository.findOneByOrFail({ id });
+    } catch (error) {
+      this.logger.error(error);
+    }
+  }
+
+  async delete(id: string): Promise<User> {
+    try {
+      await this.userRepository.findOneByOrFail({ id });
+      return await this.userRepository.softRemove({ id });
     } catch (error) {
       this.logger.error(error);
     }
