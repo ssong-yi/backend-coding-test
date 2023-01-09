@@ -6,9 +6,9 @@ import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { PostModule } from './post/post.module';
-import { Post } from './post/post.entity';
+import { Post } from './post/entities/post.entity';
 import { CommentModule } from './comment/comment.module';
-import { Comment } from './comment/comment.entity';
+import { Comment } from './comment/entities/comment.entity';
 
 @Module({
   imports: [
