@@ -4,18 +4,21 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   DeleteDateColumn,
-  OneToOne,
-  JoinColumn,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { User } from 'src/user/entities/user.entity';
 import { Comment } from 'src/comment/comment.entity';
 
+@ObjectType()
 @Entity('POST')
 export class Post {
+  @Field(() => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Field()
   @Column({
     type: 'varchar',
     length: 200,
@@ -24,6 +27,7 @@ export class Post {
   })
   title: string;
 
+  @Field()
   @Column({ type: 'text', comment: '게시글 내용' })
   content: string;
 
@@ -33,10 +37,11 @@ export class Post {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @Field(() => User)
+  @ManyToOne(() => User, (user) => user.posts)
   user: User;
 
+  @Field(() => [Comment])
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
 }

@@ -4,17 +4,20 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   DeleteDateColumn,
-  OneToOne,
-  JoinColumn,
+  ManyToOne,
 } from 'typeorm';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { User } from 'src/user/entities/user.entity';
 import { Post } from 'src/post/post.entity';
 
+@ObjectType()
 @Entity('COMMENT')
 export class Comment {
+  @Field(() => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Field()
   @Column({ type: 'text', comment: '댓글 내용' })
   content: string;
 
@@ -24,11 +27,11 @@ export class Comment {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @Field(() => User)
+  @ManyToOne(() => User, (user) => user.comments)
   author: User;
 
-  @OneToOne(() => Post)
-  @JoinColumn()
+  @Field(() => Post)
+  @ManyToOne(() => Post, (post) => post.comments)
   post: Post;
 }
