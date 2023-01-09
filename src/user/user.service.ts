@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserInput } from './dto/createUser.dto';
@@ -15,7 +15,17 @@ export class UserService {
     try {
       return await this.userRepository.save(user, { reload: false });
     } catch (error) {
-      console.error(error);
+      Logger.error(error);
+    }
+  }
+
+  async findUserByEmail(email: string): Promise<User | undefined> {
+    try {
+      return await this.userRepository.findOneByOrFail({
+        email: email,
+      });
+    } catch (error) {
+      Logger.error(error);
     }
   }
 }
