@@ -3,6 +3,7 @@ import { CreateUserInput } from './dto/createUser.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import { isEmail } from 'validator';
+import { UpdateUserInput } from './dto/updateUser.dto';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -19,6 +20,11 @@ export class UserResolver {
 
   @Query(() => User)
   async findUserByEmail(@Args('findUserByEmail') email: string) {
-    return await this.userService.findUserByEmail(email);
+    return await this.userService.findByEmail(email);
+  }
+
+  @Mutation(() => User)
+  async updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
+    return await this.userService.update(updateUserInput.id, updateUserInput);
   }
 }
