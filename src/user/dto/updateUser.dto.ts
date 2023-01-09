@@ -4,7 +4,7 @@ import { InputType, ArgsType, Field } from '@nestjs/graphql';
 @ArgsType()
 export class UpdateUserInput {
   @Field()
-  id: number;
+  id: string;
 
   @Field()
   email: string;

@@ -9,16 +9,16 @@ import {
   OneToMany,
   Index,
 } from 'typeorm';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Post } from 'src/post/post.entity';
-import { Comment } from 'src/comment/comment.entity';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { Post } from 'src/post/entities/post.entity';
+import { Comment } from 'src/comment/entities/comment.entity';
 
 @Entity('USER')
 @ObjectType()
 export class User extends BaseEntity {
-  @Field(() => Int)
-  @PrimaryGeneratedColumn()
-  id: number;
+  @Field()
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Field()
   @Column({ type: 'varchar', length: 50, unique: true, comment: '이메일' })
