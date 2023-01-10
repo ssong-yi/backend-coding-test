@@ -25,6 +25,7 @@ export class User extends BaseEntity {
   @Index()
   email: string;
 
+  @Field()
   @Column({ type: 'varchar', length: 300, comment: '비밀번호' })
   password: string;
 
